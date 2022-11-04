@@ -10,8 +10,8 @@ export interface IProductRequest {
 export interface IProduct { 
     id : string
     name : string
-    // category_id: string
-    // seller_id: string
+    category_id: string
+    seller_id: string
     price: number
     stock : number
     description : string
@@ -21,8 +21,8 @@ export interface IProduct {
 }
 
 export interface IProductUpdate { 
-    name : string
-    price: number
-    stock : number
-    description : string
+    name? : string
+    price?: number
+    stock? : number
+    description? : string
 }

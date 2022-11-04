@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source";
-import { Products } from "../../entities/products";
+import { Products } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
 import { IProductUpdate } from "../../interfaces/products";
 
 const updateProductService = async (
   { name, price, stock, description }: IProductUpdate,
   id: string
-): Promise<Products | Array<string | number>> => {
+): Promise<Products> => {
   const productsRepository = AppDataSource.getRepository(Products);
 
   const findProduct = await productsRepository.findOneBy({

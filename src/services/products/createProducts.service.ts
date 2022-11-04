@@ -1,6 +1,8 @@
 import { stringify } from "querystring";
 import AppDataSource from "../../data-source";
-import { Products } from "../../entities/products";
+import { Category } from "../../entities/category.entity";
+import { Products } from "../../entities/products.entity";
+import { Seller } from "../../entities/seller.entity";
 import AppError from "../../errors/appErrors";
 import { IProductRequest } from "../../interfaces/products";
 
@@ -13,25 +15,32 @@ const createProductService = async ({
   description,
 }: IProductRequest) => {
   const productRepository = AppDataSource.getRepository(Products);
-  const categoryIdSearch = await productRepository.findOneBy({
+  const sellerRepository = AppDataSource.getRepository(Seller)
+  const categoryRepository = AppDataSource.getRepository(Category)
+  const category = await categoryRepository.findOneBy({
     id: category_id,
   });
-  const productIdSearch = productRepository.findOne({ where: { name: name } });
-  const sellerIdSearch = await productRepository.findOneBy({ id: seller_id });
-  // const productSearch = await productRepository.findOneBy({product : address});
 
-  //   if(productIdSearch){
-  //     throw new AppError("Product already exists" ,400 )
-  //   }
 
-  if (!sellerIdSearch) {
-    throw new AppError("Seller does not exist", 400);
+  const seller = await sellerRepository.findOneBy({ id: seller_id });
+  const productSearch = await productRepository.findOneBy({ name: name });
+
+  if (productSearch) {
+    throw new AppError("Product already exists", 400);
+  }
+
+  if (!seller) {
+    throw new AppError("You can only create products if you are a seller", 400);
+  }
+
+  if (!category) {
+    throw new AppError("Category already exists", 400);
   }
 
   const newProduct = productRepository.create({
     name,
-    // category_id,
-    // seller_id,
+    category,
+    seller,
     price,
     stock,
     description,
@@ -39,7 +48,7 @@ const createProductService = async ({
   });
 
   await productRepository.save(newProduct);
-
+  
   return newProduct;
 };
 
