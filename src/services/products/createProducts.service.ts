@@ -1,6 +1,6 @@
 import { stringify } from "querystring";
 import AppDataSource from "../../data-source";
-import { Category } from "../../entities/category.entity";
+import Category from "../../entities/category.entity";
 import { Products } from "../../entities/products.entity";
 import { Seller } from "../../entities/seller.entity";
 import AppError from "../../errors/appErrors";

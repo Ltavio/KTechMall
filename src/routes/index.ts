@@ -11,5 +11,5 @@ export const AppRoutes = (app: Express) => {
   app.use("/login", sessionRoutes());
   app.use("/seller", sellerRoutes());
   app.use("/product", productRoutes());
-  app.use("/categories" ,categoriesRoutes());
+  app.use("/categories" ,categoriesRoutes);
 };
