@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "start": "node dist/app.js",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env NODE_ENV=test SECRET_KEY=KMallTech jest"
