@@ -5,12 +5,16 @@ import {
   softDeleteCategoryController,
 } from "../controllers/categories.controllers";
 
-const categoriesRoutes = Router();
+const routes = Router();
 
-categoriesRoutes.get("/categories", listCategoriesController);
-categoriesRoutes.post("/categories", createCategoryController);
-categoriesRoutes.patch("/categories/:id");
-categoriesRoutes.delete("/categories/:id", softDeleteCategoryController);
-categoriesRoutes.get("/categories/:category_id/products");
+const categoriesRoutes = ()=>{
+  routes.get("/", listCategoriesController);
+  routes.post("/", createCategoryController);
+  routes.patch("/:id");
+  routes.delete("/:id", softDeleteCategoryController);
+  routes.get("/:category_id/products");
+
+  return routes
+}
 
 export default categoriesRoutes;

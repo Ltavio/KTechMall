@@ -3,12 +3,12 @@ import Order_Product from "../../entities/orderProduct.entity";
 import AppError from "../../errors/appErrors";
 
 import { IOrderProductRequest } from "../../interfaces/order_product";
-import { Product } from "../../entities/product.entity";
 import { User } from "../../entities/user.entity";
+import { Products } from "../../entities/products.entity";
 
 const createOrderProductService = async(id:string, idProduct:string, orderProductData:IOrderProductRequest)=>{
   const orderProductRepository = AppDataSource.getRepository(Order_Product)
-  const productRepository = AppDataSource.getRepository(Product)
+  const productRepository = AppDataSource.getRepository(Products)
   const userRepository = AppDataSource.getRepository(User)
 
   const orderProduct = await orderProductRepository.findOne({where:{product: { id: orderProductData.productId}}})

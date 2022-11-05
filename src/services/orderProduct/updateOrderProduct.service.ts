@@ -1,12 +1,12 @@
 import AppDataSource from "../../data-source";
 import Order_Product from "../../entities/orderProduct.entity";
-import { Product } from "../../entities/product.entity";
+import { Products } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
 import { IOrderProductUpdate } from "../../interfaces/order_product";
 
 const updateOrderProductService = async(id:string, orderProductData:IOrderProductUpdate)=>{
   const orderProductRepository = AppDataSource.getRepository(Order_Product)
-  const productRepository = AppDataSource.getRepository(Product)
+  const productRepository = AppDataSource.getRepository(Products)
   
   const orderProduct = await orderProductRepository.findOneBy({id})
 
