@@ -1,3 +1,11 @@
+export interface ISeller {
+ companyName: string
+ cnpj:string
+ isActive: boolean
+ createdAt: Date
+ updatedAt: Date
+}
+
 export interface ISellerRequest {
   companyName: string;
   cnpj: string;
@@ -7,4 +15,9 @@ export interface ISellerRequest {
 export interface ISellerUpdate {
   companyName?: string;
   cnpj?: string;
+}
+
+export interface ISellerResponse {
+  message: string
+  data: ISeller
 }

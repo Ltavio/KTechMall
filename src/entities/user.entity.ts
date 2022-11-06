@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Exclude } from "class-transformer";
 import { IsEmail } from "class-validator";
+import Order_Product from "./orderProduct.entity";
 
 @Entity("users")
 export class User {
@@ -38,4 +40,7 @@ export class User {
 
   @UpdateDateColumn({ type: "date" })
   readonly updatedAt: Date;
+
+  @OneToMany(()=> Order_Product, orders_product => orders_product.user)
+  orders_product: Order_Product[]
 }

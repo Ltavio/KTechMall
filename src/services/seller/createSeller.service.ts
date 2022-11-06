@@ -2,22 +2,18 @@ import AppDataSource from "../../data-source";
 import { Seller } from "../../entities/seller.entity";
 import { User } from "../../entities/user.entity";
 import AppError from "../../errors/appErrors";
-import { ISellerRequest } from "../../interfaces/seller";
+import { ISellerRequest, ISellerResponse } from "../../interfaces/seller";
 
-const createSellerService = async (
-  data: ISellerRequest,
-  userId: any
-): Promise<Seller> => {
+const createSellerService = async ( 
+    data:ISellerRequest, 
+    userId: string):Promise<ISellerResponse> => {
+  
   const sellerRepository = AppDataSource.getRepository(Seller);
-
   const userRepository = AppDataSource.getRepository(User);
 
   const { companyName, cnpj } = data;
 
-  const searchSeller = await sellerRepository.findOneBy({
-    companyName,
-    cnpj,
-  });
+  const searchSeller = await sellerRepository.findOneBy({ companyName, cnpj });
 
   const searchUserSeller = await sellerRepository.findOne({
     where: {
@@ -27,21 +23,11 @@ const createSellerService = async (
     },
   });
 
-  const searchUser = await userRepository.findOneBy({
-    id: userId,
-  });
+  const searchUser = await userRepository.findOneBy({ id: userId });
 
-  if (searchUserSeller) {
-    throw new AppError("User already register");
-  }
-
-  if (searchSeller) {
-    throw new AppError("Seller already register");
-  }
-
-  if (!searchUser) {
-    throw new AppError("User not found", 404);
-  }
+  if (searchUserSeller) { throw new AppError( "User already register" )};
+  if (searchSeller) { throw new AppError( "Seller already register" )};
+  if (!searchUser) { throw new AppError( "User not found", 404 )};
 
   const seller = sellerRepository.create({
     companyName: companyName,
@@ -51,7 +37,10 @@ const createSellerService = async (
 
   await sellerRepository.save(seller);
 
-  return seller;
+  return { 
+    message: "Created seller",
+    data: seller 
+  };
 };
 
 export default createSellerService;

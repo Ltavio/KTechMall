@@ -1,17 +1,22 @@
 import AppDataSource from "../../data-source";
 import Order_Product from "../../entities/orderProduct.entity";
-import { Products } from "../../entities/products.entity";
+import { Product } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
-import { IOrderProductUpdate } from "../../interfaces/order_product";
+import { IOrderProductResponse, IOrderProductUpdate } from "../../interfaces/order_product";
 
-const updateOrderProductService = async(id:string, orderProductData:IOrderProductUpdate)=>{
+const updateOrderProductService = async(
+    id:string, 
+    orderProductData:IOrderProductUpdate):Promise<IOrderProductResponse>=>{
+
   const orderProductRepository = AppDataSource.getRepository(Order_Product)
-  const productRepository = AppDataSource.getRepository(Products)
+  const productRepository = AppDataSource.getRepository(Product)
   
   const orderProduct = await orderProductRepository.findOneBy({id})
 
   if(!orderProduct){ throw new AppError("Order Product not found") }
-  if(orderProduct.product.stock < orderProductData.quantity){ throw new AppError("insufficient stock", 401) }
+  if(
+    orderProduct.product.stock < 
+    orderProductData.quantity){ throw new AppError("insufficient stock", 401) }
 
   const newOrderProduct = {
     ...orderProduct,

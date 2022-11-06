@@ -1,21 +1,17 @@
 import AppDataSource from "../../data-source";
-import { Products } from "../../entities/products.entity";
+import { Product } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
-import { IProductUpdate } from "../../interfaces/products";
+import { IProductResponse, IProductUpdate } from "../../interfaces/products";
 
 const updateProductService = async (
-  { name, price, stock, description }: IProductUpdate,
-  id: string
-): Promise<Products> => {
-  const productsRepository = AppDataSource.getRepository(Products);
+  { name, price, stock, description }:IProductUpdate,
+  id: string):Promise<IProductResponse> => {
+  
+  const productsRepository = AppDataSource.getRepository(Product);
 
-  const findProduct = await productsRepository.findOneBy({
-    id,
-  });
+  const findProduct = await productsRepository.findOneBy({ id });
 
-  if (!findProduct) {
-    throw new AppError("Product does not exist", 404);
-  }
+  if (!findProduct) { throw new AppError("Product does not exist", 404) };
 
   await productsRepository.update(id, {
     name: name ? name : findProduct.name,
@@ -24,11 +20,12 @@ const updateProductService = async (
     description: description ? description : findProduct.description,
   });
 
-  const product = await productsRepository.findOneBy({
-    id,
-  });
+  const product = await productsRepository.findOneBy({ id });
 
-  return product!;
+  return {
+    message: "Updated product",
+    data: product!
+  };
 };
 
 export default updateProductService;

@@ -1,7 +1,7 @@
 export interface IProductRequest { 
     name : string
-    category_id: string
-    seller_id: string
+    categoryId: string
+    sellerId: string
     price: number
     stock : number
     description : string
@@ -10,8 +10,7 @@ export interface IProductRequest {
 export interface IProduct { 
     id : string
     name : string
-    category_id: string
-    seller_id: string
+   
     price: number
     stock : number
     description : string
@@ -25,4 +24,14 @@ export interface IProductUpdate {
     price?: number
     stock? : number
     description? : string
+}
+
+export interface IProductResponse {
+    message: string,
+    data: IProduct
+}
+
+export interface IListProducsResponse {
+    message: string,
+    data: IProduct[]
 }

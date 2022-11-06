@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Products } from "../entities/products.entity";
+import { Product } from "../entities/products.entity";
 import { IProductUpdate } from "../interfaces/products";
 import createProductService from "../services/products/createProducts.service";
 import deleteProductService from "../services/products/deleteProduct.service";
@@ -9,15 +9,16 @@ import updateProductService from "../services/products/updateProduct.service";
 import { instanceToPlain } from "class-transformer";
 
 export const createProductController = async (req: Request, res: Response) => {
-  const requestData = req.body;
-  const product = await createProductService(requestData);
-  return res.status(201).json(product);
+  const productData = req.body
+  const response = await createProductService(productData)
+
+  return res.status(201).json(instanceToPlain(response))
 };
 
 export const deleteProductController = async (req: Request, res: Response) => {
   const id: string = req.params.id;
   const deletedProducts = await deleteProductService(id);
-  if (deletedProducts instanceof Products) {
+  if (deletedProducts instanceof Product) {
     return res.json(deletedProducts);
   }
   return res.status(204).json({
@@ -26,27 +27,24 @@ export const deleteProductController = async (req: Request, res: Response) => {
 };
 
 export const listProductController = async (req: Request, res: Response) => {
-    const products = await listProductsService()
-    return res.status(200).json(products);
+    const response = await listProductsService()
+    return res.status(200).json(instanceToPlain(response));
 };
 
 export const updateProductController = async (req: Request, res: Response) => {
     const requestData : IProductUpdate = req.body
     const id: string = req.params.id
-    const updateProduct = await updateProductService(requestData, id)
-    if(updateProduct instanceof Products){
-        return res.json(updateProduct)
+    const response = await updateProductService(requestData, id)
+    if(response instanceof Product){
+        return res.json(response)
     }
-    return res.status(201).json({
-      message: "Updated product",
-      data: instanceToPlain(updateProduct),
-    });
+    return res.status(201).json( instanceToPlain(response));
 };
 
 export const listOneProductController = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const product = await  listOneProductService(id)
-    return res.status(200).json(product);
+    const response = await  listOneProductService(id)
+    return res.status(200).json(instanceToPlain(response));
 };
 
 

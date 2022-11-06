@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Product } from "./products.entity";
 import { User } from "./user.entity";
 
-@Entity("seller")
+@Entity("sellers")
 export class Seller {
   @PrimaryColumn("uuid")
   readonly id: string;
@@ -35,6 +37,10 @@ export class Seller {
   })
   @JoinColumn()
   user: User;
+
+  @OneToMany(()=> Product, products => products.seller)
+  products: Product[]
+
 
   constructor() {
     if (!this.id) {

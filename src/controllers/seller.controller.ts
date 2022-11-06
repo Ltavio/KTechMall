@@ -4,15 +4,15 @@ import createSellerService from "../services/seller/createSeller.service";
 import deleteSellerService from "../services/seller/deleteSeller.service";
 import listSellerService from "../services/seller/listSeller.service";
 import updatedSellerService from "../services/seller/updatedSeller.service";
-
+import { instanceToPlain } from "class-transformer";
 const createSellerController = async (req: Request, res: Response) => {
   const data: ISellerRequest = req.body;
 
   const id = req.user.id;
 
-  const seller = await createSellerService(data, id);
+  const response = await createSellerService(data, id);
 
-  return res.status(201).json({ "Created seller": seller });
+  return res.status(201).json(instanceToPlain(response));
 };
 
 const updatedSellerController = async (req: Request, res: Response) => {

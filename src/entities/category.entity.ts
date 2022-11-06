@@ -2,12 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { NameAlreadyExists } from "../validators/categories";
+import { Product } from "./products.entity";
 
-@Entity()
+@Entity("categories")
 export default class Category {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
@@ -27,4 +30,7 @@ export default class Category {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(()=> Product, products => products.category)
+  products: Product[]
 }

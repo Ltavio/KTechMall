@@ -9,3 +9,14 @@ export interface ICategory extends ICategoryRequest {
   createdAt: Date;
   updatedAt: Date;
 }
+
+
+export interface ICreateCategoryResponse {
+  message: string
+  data: ICategory
+}
+
+export interface IListCategoryResponse {
+  message: string
+  data: ICategory[]
+}

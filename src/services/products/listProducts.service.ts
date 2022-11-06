@@ -1,11 +1,15 @@
 import AppDataSource from "../../data-source";
-import { Products } from "../../entities/products.entity";
+import { Product } from "../../entities/products.entity";
+import { IListProducsResponse } from "../../interfaces/products";
 
-const listProductsService = async () : Promise<Products[]> => { 
-    const productRepository = AppDataSource.getRepository(Products);
+const listProductsService = async () : Promise<IListProducsResponse> => { 
+    const productRepository = AppDataSource.getRepository(Product);
     const products = await productRepository.find();
 
-    return products;
+    return {
+        message: "listed all products",
+        data: products
+    };
 }
 
 export default listProductsService;
