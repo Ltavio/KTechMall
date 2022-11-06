@@ -1,9 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
-import { Products } from "./products.entity";
-import { User } from "./user.entity";
+import { 
+  Entity,
+  PrimaryGeneratedColumn,
+  Column, 
+  CreateDateColumn, 
+  UpdateDateColumn, 
+  ManyToOne
+} from "typeorm";
+import  Product  from "./products.entity";
+import  User  from "./user.entity";
 
-@Entity("order_product")
-class Order_Product {
+@Entity("orders_product")
+export default class Order_Product {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string
 
@@ -25,8 +32,6 @@ class Order_Product {
   @ManyToOne(()=> User, {eager: true})
   user: User
 
-  @ManyToOne(()=> Products, {eager:true})
-  product: Products
+  @ManyToOne(()=> Product, {eager:true})
+  product: Product
 };
-
-export default Order_Product;

@@ -8,29 +8,22 @@ import updateUserService from "../services/user/updateUser.service";
 
 const createUserController = async (req: Request, res: Response) => {
   const { name, email, password, cellphone } = req.body;
-  const newUser = await createUserService({ name, email, password, cellphone });
-  return res.status(201).json({
-    message: "Created user",
-    data: instanceToPlain(newUser),
-  });
+  const response = await createUserService({ name, email, password, cellphone });
+  
+  return res.status(201).json( instanceToPlain(response) );
 };
 
 const listUsersController = async (req: Request, res: Response) => {
-  const users = await listUsersService();
-  return res.status(200).json({
-    message: "Listed users",
-    data: instanceToPlain(users),
-  });
+  const response = await listUsersService();
+  return res.status(200).json( instanceToPlain(response) );
 };
 
 const updateUserController = async (req: Request, res: Response) => {
   const dataUser = req.body;
   const { id } = req.params;
-  const updatedUser = await updateUserService(dataUser, id);
-  return res.status(201).json({
-    message: "Updated user",
-    data: instanceToPlain(updatedUser),
-  });
+  const response = await updateUserService(dataUser, id);
+  
+  return res.status(201).json( instanceToPlain(response) );
 };
 
 const deleteUserController = async (req: Request, res: Response) => {

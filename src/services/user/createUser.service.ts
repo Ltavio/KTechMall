@@ -1,21 +1,17 @@
 import AppDataSource from "../../data-source";
-import { User } from "../../entities/user.entity";
-import { IUserRequest } from "../../interfaces/user";
-import { AppError } from "../../errors/appErrors";
+import AppError from "../../errors/appErrors";
 import bcrypt from "bcrypt";
 
-const createUserService = async ({
-  name,
-  email,
-  password,
-  cellphone,
-}: IUserRequest): Promise<User> => {
+import User from "../../entities/user.entity";
+
+import { IUserRequest, IUserResponse } from "../../interfaces/user";
+
+const createUserService = async (
+    { name, email, password, cellphone,}: IUserRequest ): Promise<IUserResponse> => {
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.findOneBy({ email });
 
-  if (users) {
-    throw new AppError("Email already exists");
-  }
+  if(users){ throw new AppError( "Email already exists" ) };
 
   const user = userRepository.create({
     name: name,
@@ -26,7 +22,10 @@ const createUserService = async ({
 
   await userRepository.save(user);
 
-  return user;
+  return {
+    message: "Created user",
+    data: user
+  };
 };
 
 export default createUserService;

@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
-import createOrderProductService from "../services/orderProduct/createOrderProduct.service";
 import { instanceToPlain } from "class-transformer"
+
+import createOrderProductService from "../services/orderProduct/createOrderProduct.service";
 import updateOrderProductService from "../services/orderProduct/updateOrderProduct.service";
 import listOrdersProductService from "../services/orderProduct/listOrdersProduct.service";
 import softDeleteOrderProductService from "../services/orderProduct/softDeleteOrderProduct.service";
 
 const createOrderProductController = async(req:Request, res: Response)=>{
   const orderProductData = req.body
-  const idProduct:any = req.params.id
+  const idProduct = req.params.id
   const id = req.user.id
   
   const response = await createOrderProductService(id, idProduct, orderProductData)
