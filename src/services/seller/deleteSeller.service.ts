@@ -1,10 +1,10 @@
 import AppDataSource from "../../data-source";
-import { Seller } from "../../entities/seller.entity";
 import AppError from "../../errors/appErrors";
 
-const deleteSellerService = async (userId: string): Promise<Seller> => {
-  const sellerRepository = AppDataSource.getRepository(Seller);
+import Seller from "../../entities/seller.entity";
 
+const deleteSellerService = async (userId: string): Promise<void> => {
+  const sellerRepository = AppDataSource.getRepository(Seller);
   const searchSeller = await sellerRepository.findOne({
     where: {
       user: {
@@ -13,23 +13,10 @@ const deleteSellerService = async (userId: string): Promise<Seller> => {
     },
   });
 
-  if (!searchSeller) {
-    throw new AppError("Seller not found", 404);
-  }
+  if (!searchSeller) { throw new AppError("Seller not found", 404) };
+  if (!searchSeller.isActive) { throw new AppError("Seller not active") };
 
-  if (!searchSeller.isActive) {
-    throw new AppError("Seller not active");
-  }
-
-  await sellerRepository.update(searchSeller.id, {
-    isActive: false,
-  });
-
-  const seller = await sellerRepository.findOneBy({
-    id: searchSeller.id,
-  });
-
-  return seller!;
+  await sellerRepository.update(searchSeller.id, { isActive: false } );
 };
 
 export default deleteSellerService;

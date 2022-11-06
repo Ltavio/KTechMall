@@ -1,20 +1,20 @@
 import AppDataSource from "../../data-source";
-import { Products } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
 
-const listOneProductService = async (id : string)  => { 
-    const productRepository = AppDataSource.getRepository(Products);
+import Product from "../../entities/products.entity";
 
-    const productSearch = await productRepository.findOne({
-        where : {id : id},
-    });
+import { IProductResponse } from "../../interfaces/products";
 
-    if(!productSearch){ 
-        throw new AppError("Product already exists", 404)
-    }
+const listOneProductService = async (id : string):Promise<IProductResponse>=> { 
+    const productRepository = AppDataSource.getRepository(Product);
+    const productSearch = await productRepository.findOne({ where:{id : id} } );
 
-    return productSearch;
+    if(!productSearch){ throw new AppError("Product already exists", 404) };
 
-}
+    return {
+        message: "Listed product",
+        data: productSearch
+    };
+};
 
 export default listOneProductService;

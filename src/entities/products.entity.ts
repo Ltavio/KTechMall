@@ -1,17 +1,27 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, ManyToOne } from "typeorm";
-import { v4 as uuid } from "uuid"
+import { 
+    Entity, 
+    PrimaryColumn, 
+    Column, 
+    CreateDateColumn, 
+    UpdateDateColumn, 
+    OneToMany, 
+    ManyToOne 
+} from "typeorm";
 import Category from "./category.entity";
-import { Seller } from "./seller.entity";
+import Order_Product from "./orderProduct.entity";
+import  Seller  from "./seller.entity";
+
+import { v4 as uuid } from "uuid"
 
 @Entity("products")
-export class Products {
+export default class Product {
     @PrimaryColumn("uuid")
     readonly id: string
 
-    @Column({length : 100, unique : true})
+    @Column({length : 150, unique : true})
     name: string
 
-    @Column('float')
+    @Column({type:"decimal", precision:8, scale:2})
     price: number
 
     @Column()
@@ -20,13 +30,13 @@ export class Products {
     @Column({length : 256})
     description: string
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: "date" })
     createdAt : Date
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ type: "date" })
     updatedAt: Date
     
-    @Column()
+    @Column({default: true})
     isActive: boolean
 
     @ManyToOne(() => Seller, { eager: true })
@@ -34,6 +44,9 @@ export class Products {
 
     @ManyToOne(() => Category, { eager: true })
     category: Category
+
+    @OneToMany(()=> Order_Product, orders_product => orders_product.product)
+     orders_product: Order_Product[]
 
     constructor() {
         if (!this.id) {
