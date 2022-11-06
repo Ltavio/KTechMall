@@ -1,17 +1,20 @@
 import {
   Entity,
-  Column,
   PrimaryColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
   OneToOne,
   JoinColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
-import { User } from "./user.entity";
+import  Product  from "./products.entity";
+import  User  from "./user.entity";
 
-@Entity("seller")
-export class Seller {
+import { v4 as uuid } from "uuid";
+
+@Entity("sellers")
+export default class Seller {
   @PrimaryColumn("uuid")
   readonly id: string;
 
@@ -24,17 +27,21 @@ export class Seller {
   @Column({ length: 14, unique: true })
   cnpj: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   updatedAt: Date;
 
-  @OneToOne((type) => User, {
+  @OneToOne(() => User, {
     eager: true,
   })
   @JoinColumn()
   user: User;
+
+  @OneToMany(()=> Product, products => products.seller)
+  products: Product[]
+
 
   constructor() {
     if (!this.id) {

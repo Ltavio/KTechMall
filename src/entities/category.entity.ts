@@ -1,18 +1,21 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
   UpdateDateColumn,
+  OneToMany
 } from "typeorm";
+import  Product  from "./products.entity";
+
 import { NameAlreadyExists } from "../validators/categories";
 
-@Entity()
+@Entity("categories")
 export default class Category {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ length: 100, unique: true })
+  @Column({ length: 50, unique: true })
   @NameAlreadyExists({})
   name: string;
 
@@ -22,9 +25,12 @@ export default class Category {
   @Column({ default: true })
   isActive: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   updatedAt: Date;
+
+  @OneToMany(()=> Product, products => products.category)
+  products: Product[]
 }

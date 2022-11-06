@@ -1,14 +1,15 @@
 import AppDataSource from "../../data-source";
-import { Seller } from "../../entities/seller.entity";
 import AppError from "../../errors/appErrors";
-import { ISellerUpdate } from "../../interfaces/seller";
+
+import Seller from "../../entities/seller.entity";
+
+import { ISellerResponse, ISellerUpdate } from "../../interfaces/seller";
 
 const updatedSellerService = async (
   data: ISellerUpdate,
   id: string
-): Promise<Seller> => {
+):Promise<ISellerResponse> => {
   const sellerRepository = AppDataSource.getRepository(Seller);
-
   const searchSeller = await sellerRepository.findOne({
     where: {
       user: {
@@ -17,9 +18,7 @@ const updatedSellerService = async (
     },
   });
 
-  if (!searchSeller) {
-    throw new AppError("Seller not found", 404);
-  }
+  if (!searchSeller) { throw new AppError( "Seller not found", 404 )};
 
   const { companyName, cnpj } = data;
 
@@ -28,11 +27,12 @@ const updatedSellerService = async (
     cnpj: cnpj ? cnpj : searchSeller.cnpj,
   });
 
-  const seller = await sellerRepository.findOneBy({
-    id: searchSeller.id,
-  });
+  const seller = await sellerRepository.findOneBy({ id: searchSeller.id });
 
-  return seller!;
+  return {
+    message: "Updated seller",
+    data: seller!
+  };
 };
 
 export default updatedSellerService;

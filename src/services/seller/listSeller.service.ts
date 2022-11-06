@@ -1,10 +1,12 @@
 import AppDataSource from "../../data-source";
-import { Seller } from "../../entities/seller.entity";
 import AppError from "../../errors/appErrors";
 
-const listSellerService = async (userId: string): Promise<Seller> => {
-  const sellerRepository = AppDataSource.getRepository(Seller);
+import Seller from "../../entities/seller.entity";
 
+import { ISellerResponse } from "../../interfaces/seller";
+
+const listSellerService = async (userId: string): Promise<ISellerResponse> => {
+  const sellerRepository = AppDataSource.getRepository(Seller);
   const searchUser = await sellerRepository.findOne({
     where: {
       user: {
@@ -13,11 +15,12 @@ const listSellerService = async (userId: string): Promise<Seller> => {
     },
   });
 
-  if (!searchUser) {
-    throw new AppError("Seller not found", 404);
-  }
+  if (!searchUser) { throw new AppError("Seller not found", 404) };
 
-  return searchUser;
+  return {
+    message: "Listed seller",
+    data: searchUser
+  }; 
 };
 
 export default listSellerService;

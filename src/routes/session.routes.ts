@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import userSessionController from "../controllers/userSession.controller";
 
 const routes = Router();
