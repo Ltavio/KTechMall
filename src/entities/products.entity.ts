@@ -1,18 +1,27 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from "typeorm";
-import { v4 as uuid } from "uuid"
+import { 
+    Entity, 
+    PrimaryColumn, 
+    Column, 
+    CreateDateColumn, 
+    UpdateDateColumn, 
+    OneToMany, 
+    ManyToOne 
+} from "typeorm";
 import Category from "./category.entity";
 import Order_Product from "./orderProduct.entity";
-import { Seller } from "./seller.entity";
+import  Seller  from "./seller.entity";
+
+import { v4 as uuid } from "uuid"
 
 @Entity("products")
-export class Product {
+export default class Product {
     @PrimaryColumn("uuid")
     readonly id: string
 
-    @Column({length : 100, unique : true})
+    @Column({length : 150, unique : true})
     name: string
 
-    @Column({type:"decimal", precision:12, scale:2})
+    @Column({type:"decimal", precision:8, scale:2})
     price: number
 
     @Column()
@@ -21,10 +30,10 @@ export class Product {
     @Column({length : 256})
     description: string
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: "date" })
     createdAt : Date
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ type: "date" })
     updatedAt: Date
     
     @Column({default: true})

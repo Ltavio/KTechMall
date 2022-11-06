@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
-import { Product } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
+
+import Product from "../../entities/products.entity";
 
 
 const deleteProductService = async ( id : string): Promise<any> => { 
@@ -19,9 +20,9 @@ const deleteProductService = async ( id : string): Promise<any> => {
     const message = { 
         message: "Product disabled",
         statusCode: 200
-    }
+    };
 
     return message;
-}
+};
 
 export default deleteProductService;

@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import {
   createProductController,
   listProductController,
@@ -8,14 +7,16 @@ import {
   updateProductController,
 } from "../controllers/products.controller";
 
+import authTokenMiddleware from "../middlewares/authToken.middleware";
+
 const routes = Router();
 
 const productRoutes = () => {
-  routes.post("/", createProductController);
-  routes.get("/", listProductController);
+  routes.post("/",authTokenMiddleware, createProductController);
+  routes.patch("/:id",authTokenMiddleware, updateProductController);
+  routes.delete("/:id",authTokenMiddleware, deleteProductController);
   routes.get("/:id", listOneProductController);
-  routes.patch("/:id", updateProductController);
-  routes.delete("/:id", deleteProductController);
+  routes.get("/", listProductController);
 
   return routes;
 };

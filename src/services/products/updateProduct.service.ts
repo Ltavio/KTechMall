@@ -1,14 +1,14 @@
 import AppDataSource from "../../data-source";
-import { Product } from "../../entities/products.entity";
 import AppError from "../../errors/appErrors";
+
+import Product from "../../entities/products.entity";
+
 import { IProductResponse, IProductUpdate } from "../../interfaces/products";
 
 const updateProductService = async (
   { name, price, stock, description }:IProductUpdate,
   id: string):Promise<IProductResponse> => {
-  
   const productsRepository = AppDataSource.getRepository(Product);
-
   const findProduct = await productsRepository.findOneBy({ id });
 
   if (!findProduct) { throw new AppError("Product does not exist", 404) };

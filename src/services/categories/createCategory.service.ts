@@ -1,13 +1,14 @@
-import { validate } from "class-validator";
 import AppDataSource from "../../data-source";
-import Category from "../../entities/category.entity";
 import AppError from "../../errors/appErrors";
+
+import Category from "../../entities/category.entity";
+
 import { ICategoryRequest, ICreateCategoryResponse } from "../../interfaces/categories";
+import { validate } from "class-validator";
 
 const createCategoryService = async ({ 
     name, 
     description,}:ICategoryRequest):Promise<ICreateCategoryResponse> => {
-  
   const categoryRepository = AppDataSource.getRepository(Category);
 
   const newCategory = categoryRepository.create({ name, description });

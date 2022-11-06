@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { ISellerRequest } from "../interfaces/seller";
+import { instanceToPlain } from "class-transformer";
+
 import createSellerService from "../services/seller/createSeller.service";
 import deleteSellerService from "../services/seller/deleteSeller.service";
 import listSellerService from "../services/seller/listSeller.service";
 import updatedSellerService from "../services/seller/updatedSeller.service";
-import { instanceToPlain } from "class-transformer";
-const createSellerController = async (req: Request, res: Response) => {
-  const data: ISellerRequest = req.body;
 
+const createSellerController = async (req: Request, res: Response) => {
+  const data = req.body;
   const id = req.user.id;
 
   const response = await createSellerService(data, id);
@@ -17,28 +17,25 @@ const createSellerController = async (req: Request, res: Response) => {
 
 const updatedSellerController = async (req: Request, res: Response) => {
   const data = req.body;
-
   const id = req.user.id;
 
-  const updatedSeller = await updatedSellerService(data, id);
+  const response = await updatedSellerService(data, id);
 
-  return res.status(200).json({ "Updated seller": updatedSeller });
+  return res.status(200).json(instanceToPlain(response));
 };
 
 const deleteSellerController = async (req: Request, res: Response) => {
   const userId = req.user.id;
+  await deleteSellerService(userId);
 
-  const deleteSeller = await deleteSellerService(userId);
-
-  res.status(204).json({ "Delete seller": deleteSeller });
+  res.status(204).end();
 };
 
 const listSellerController = async (req: Request, res: Response) => {
   const userId = req.user.id;
+  const response = await listSellerService(userId);
 
-  const listSeller = await listSellerService(userId);
-
-  res.status(200).json(listSeller);
+  res.status(200).json(instanceToPlain(response));
 };
 
 export {

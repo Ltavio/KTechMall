@@ -1,17 +1,18 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Exclude } from "class-transformer";
-import { IsEmail } from "class-validator";
 import Order_Product from "./orderProduct.entity";
 
+import { Exclude } from "class-transformer";
+import { IsEmail } from "class-validator";
+
 @Entity("users")
-export class User {
+export default class User {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 

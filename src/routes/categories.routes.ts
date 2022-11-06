@@ -5,14 +5,16 @@ import {
   softDeleteCategoryController,
 } from "../controllers/categories.controllers";
 
+import authTokenMiddleware from "../middlewares/authToken.middleware";
+
 const routes = Router();
 
 const categoriesRoutes = () => {
-  routes.post("/", createCategoryController);
+  routes.post("/", authTokenMiddleware, createCategoryController);
+  routes.patch("/:id"); // lacking
+  routes.delete("/:id",authTokenMiddleware, softDeleteCategoryController);
   routes.get("/", listCategoriesController);
-  routes.get("/:category_id/products");
-  routes.patch("/:id");
-  routes.delete("/:id", softDeleteCategoryController);
+  routes.get("/:id/products"); // lacking
 
   return routes
 }

@@ -1,20 +1,21 @@
 import AppDataSource from "../../data-source";
-import { Seller } from "../../entities/seller.entity";
-import { User } from "../../entities/user.entity";
 import AppError from "../../errors/appErrors";
+
+import Seller from "../../entities/seller.entity";
+import User from "../../entities/user.entity";
+
 import { ISellerRequest, ISellerResponse } from "../../interfaces/seller";
 
 const createSellerService = async ( 
     data:ISellerRequest, 
     userId: string):Promise<ISellerResponse> => {
-  
   const sellerRepository = AppDataSource.getRepository(Seller);
   const userRepository = AppDataSource.getRepository(User);
 
   const { companyName, cnpj } = data;
 
+  const searchUser = await userRepository.findOneBy({ id: userId });
   const searchSeller = await sellerRepository.findOneBy({ companyName, cnpj });
-
   const searchUserSeller = await sellerRepository.findOne({
     where: {
       user: {
@@ -22,8 +23,6 @@ const createSellerService = async (
       },
     },
   });
-
-  const searchUser = await userRepository.findOneBy({ id: userId });
 
   if (searchUserSeller) { throw new AppError( "User already register" )};
   if (searchSeller) { throw new AppError( "Seller already register" )};
