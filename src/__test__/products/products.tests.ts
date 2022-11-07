@@ -22,26 +22,26 @@ describe("Create an product", () => {
     const price = 20;
     const stock = 5;
     const description = "Esponja amarela";
-    const category_id = "";
-    const seller_id = "";
+    const categoryId = "";
+    const sellerId = "";
 
     const productData = {
       name,
       price,
       stock,
       description,
-      category_id,
-      seller_id,
+      categoryId,
+      sellerId,
     };
 
-    const newPeoduct = await createProductService(productData);
+    const newProduct = await createProductService(productData);
 
-    expect(newPeoduct).toEqual(
+    expect(newProduct).toEqual(
       expect.objectContaining({
         id: 1,
         name,
-        category_id,
-        seller_id,
+        categoryId,
+        sellerId,
         price,
         stock,
         description,
