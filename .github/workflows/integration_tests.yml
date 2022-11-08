@@ -1,0 +1,27 @@
+name: Run Integration Tests
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Chekcout
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: ${{matrix.node-version}}
+      
+      - name: Install dependencies
+        run: yarn
+      
+      - name: Run integration tests
+        run: yarn test
+          
+          
