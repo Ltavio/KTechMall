@@ -6,6 +6,7 @@ import {
   UpdateDateColumn, 
   ManyToOne
 } from "typeorm";
+import Cart from "./cart.entity";
 import  Product  from "./products.entity";
 import  User  from "./user.entity";
 
@@ -34,4 +35,7 @@ export default class Order_Product {
 
   @ManyToOne(()=> Product, {eager:true})
   product: Product
+
+  @ManyToOne(() => Cart, { eager: true })
+  cart: Cart
 };
