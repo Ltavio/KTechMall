@@ -17,16 +17,18 @@ const createProductService = async (
   const seller = await sellerRepository.findOneBy({ id: productData.sellerId });
   const productSearch = await productRepository.findOneBy({ name: productData.name });
 
-  if(productSearch){ throw new AppError("Product already exists", 400) };
+  if(productSearch){ throw new AppError("Product already exists", 409) };
   if(!category){ throw new AppError("Category not found", 400) };
   if(!seller){ 
-    throw new AppError("You can only create products if you are a seller", 400) };
+    throw new AppError("You can only create products if you are a seller", 400)
+  };
 
   const newProduct = productRepository.create({
     ...productData,
     seller,
     category
   });
+  
   await productRepository.save(newProduct);
   
   return {
