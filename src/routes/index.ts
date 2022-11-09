@@ -7,6 +7,7 @@ import userRoutes from "./user.routes";
 import sessionRoutes from "./session.routes";
 import sellerRoutes from "./seller.routes";
 import cartRoutes from "./cart.routes";
+import deliveryRoutes from "./delivery.routes";
 
 export const AppRoutes = (app: Express) => {
   app.use("/users", userRoutes());
@@ -16,4 +17,5 @@ export const AppRoutes = (app: Express) => {
   app.use("/categories" ,categoriesRoutes());
   app.use('/ordersProduct', orderProductRoutes());
   app.use("/cart", cartRoutes());
+  app.use("/delivery", deliveryRoutes());
 };
