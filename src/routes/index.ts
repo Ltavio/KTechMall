@@ -6,12 +6,14 @@ import sellerRoutes from "./seller.routes";
 import productRoutes from "./products.routes";
 import categoriesRoutes from "./categories.routes";
 import orderProductRoutes from "./orderProduct.routes";
+import deliveryRoutes from "./delivery.routes";
 
 export const AppRoutes = (app: Express) => {
   app.use("/users", userRoutes());
   app.use("/login", sessionRoutes());
   app.use("/sellers", sellerRoutes());
   app.use("/products", productRoutes());
-  app.use("/categories" ,categoriesRoutes());
-  app.use('/ordersProduct', orderProductRoutes())
+  app.use("/categories", categoriesRoutes());
+  app.use("/ordersProduct", orderProductRoutes());
+  app.use("/delivery", deliveryRoutes());
 };
