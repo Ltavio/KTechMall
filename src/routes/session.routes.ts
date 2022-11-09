@@ -4,7 +4,7 @@ import userSessionController from "../controllers/userSession.controller";
 const routes = Router();
 
 const sessionRoutes = () => {
-  routes.post("", userSessionController);
+  routes.post("/", userSessionController);
   return routes;
 };
 
