@@ -12,7 +12,7 @@ import {
 import Order_Product from "./orderProduct.entity";
 import { v4 as uuid } from "uuid"
 import User from "./user.entity";
-import Delivery from "./delivey.entity";
+import Delivery from "./delivery.entity";
 
 @Entity("cart")
 export default class Cart {

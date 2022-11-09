@@ -28,9 +28,9 @@ export default class Delivery {
   @UpdateDateColumn({ type: "date" })
   readonly updatedAt: Date;
 
-  @OneToOne(() => Adress, {
-    eager: true,
-  })
-  @JoinColumn()
-  adress: Adress;
+  // @OneToOne(() => Adress, {
+  //   eager: true,
+  // })
+  // @JoinColumn()
+  // adress: Adress;
 }

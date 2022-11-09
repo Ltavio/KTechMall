@@ -6,9 +6,10 @@ import User from "../../entities/user.entity";
 
 import { ISellerRequest, ISellerResponse } from "../../interfaces/seller";
 
-const createSellerService = async ( 
-    data:ISellerRequest, 
-    userId: string):Promise<ISellerResponse> => {
+const createSellerService = async (
+  data: ISellerRequest,
+  userId: string
+): Promise<ISellerResponse> => {
   const sellerRepository = AppDataSource.getRepository(Seller);
   const userRepository = AppDataSource.getRepository(User);
 
@@ -24,9 +25,15 @@ const createSellerService = async (
     },
   });
 
-  if (searchUserSeller) { throw new AppError( "User already register" )};
-  if (searchSeller) { throw new AppError( "Seller already register" )};
-  if (!searchUser) { throw new AppError( "User not found", 404 )};
+  if (searchUserSeller) {
+    throw new AppError("User already register");
+  }
+  if (searchSeller) {
+    throw new AppError("Seller already register");
+  }
+  if (!searchUser) {
+    throw new AppError("User not found", 404);
+  }
 
   const seller = sellerRepository.create({
     companyName: companyName,
@@ -36,9 +43,9 @@ const createSellerService = async (
 
   await sellerRepository.save(seller);
 
-  return { 
+  return {
     message: "Created seller",
-    data: seller 
+    data: seller,
   };
 };
 

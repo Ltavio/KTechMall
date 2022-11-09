@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
 import Cart from "../../entities/cart.entity";
-import Delivery from "../../entities/delivey.entity";
+import Delivery from "../../entities/delivery.entity";
+
 import Order_Product from "../../entities/orderProduct.entity";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/appErrors";
