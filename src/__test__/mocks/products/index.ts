@@ -1,31 +1,18 @@
-export const mockedProductData = {
-  name: "Esponja",
-  price: 20,
-  stock: 5,
-  description: "Esponja amarela",
-};
+import { IProductRequest } from "../../../interfaces/products";
 
-export const mockedInvalidProductData = {
-  name: undefined,
-  price: undefined,
-  invalidProp: "defined",
+export const mockedProductRequest: IProductRequest = {
+  description: "Mocked product to test",
+  name: "Mocked Product",
+  price: 13,
+  categoryId: "",
+  sellerId: "",
+  stock: 2
 };
-
-export const mockedProductForUpdate = {
-  name: "Sabão Bruto",
-  price: 2,
-  stock: 20,
-  description: "Sabão blocado",
-};
-
-export const mockedProductUpdate = {
-  name: "Sabão em pó",
-  description: "Caixa de sabão em pó OMO",
-};
-
-export const mockedProductForDelete = {
-  name: "Vassoura",
-  price: 5,
-  stock: 20,
-  description: "Vassoura de palha para varrer o piso",
+export const mockedSecondProductRequest: IProductRequest = {
+  description: "Other product Mocked to test",
+  name: "Other product Mocked",
+  price: 13,
+  categoryId: "",
+  sellerId: "",
+  stock: 1
 };
