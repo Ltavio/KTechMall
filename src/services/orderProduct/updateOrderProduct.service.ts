@@ -15,7 +15,7 @@ const updateOrderProductService = async(
   if(!orderProduct){ throw new AppError("Order Product not found") };
   if(
     orderProduct.product.stock < 
-    orderProductData.quantity){ throw new AppError("insufficient stock", 401) };
+    orderProductData.quantity){ throw new AppError("insufficient stock", 409) };
 
   const newOrderProduct = {
     ...orderProduct,

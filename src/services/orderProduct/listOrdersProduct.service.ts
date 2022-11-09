@@ -8,7 +8,7 @@ const listOrdersProductService = async():Promise<IListOrderProductResponse>=>{
   const ordersProduct = await orderProductRepository.find();
 
   return {
-    message: "Listed order_products",
+    message: "Listed orders_product",
     data: ordersProduct
   };
 };
