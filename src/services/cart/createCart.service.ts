@@ -1,6 +1,6 @@
 import AppDataSource from "../../data-source";
 import Cart from "../../entities/cart.entity";
-import Delivery from "../../entities/delivey.entity";
+import Delivery from "../../entities/delivery.entity";
 import Order_Product from "../../entities/orderProduct.entity";
 import User from "../../entities/user.entity";
 import AppError from "../../errors/appErrors";
@@ -20,7 +20,7 @@ const createCartService = async (
   if (!user) {
     throw new AppError("User not found");
   }
-  
+
   if (!delivery) {
     throw new AppError("Delivery not found");
   }
@@ -35,7 +35,7 @@ const createCartService = async (
 
   return {
     message: "Created delivery",
-    data: teste
+    data: teste,
   };
 };
 

@@ -7,6 +7,7 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
+import Addresses from "./addresses.entity";
 
 @Entity("delivery")
 export default class Delivery {
@@ -28,9 +29,9 @@ export default class Delivery {
   @UpdateDateColumn({ type: "date" })
   readonly updatedAt: Date;
 
-  @OneToOne(() => Adress, {
+  @OneToOne(() => Addresses, {
     eager: true,
   })
   @JoinColumn()
-  adress: Adress;
+  adress: Addresses;
 }
