@@ -2,42 +2,44 @@
 
 ##Descrição:
 
-<descrição do projeto>
+Aplicação baseada no mecanismo de back-end base para a estruturação de um E-commerce, focado em compras e vendas de produtos relacionados à informática e tecnologias.
+
 
 ##Solução:
 
-<solução projeto>
+- Facilitar o desenvolvimento de plataformas de E-commerce no geral, criando uma criando um núcleo de back-end sólido para que o desenvolvimento e deploy mais ágil de um E-commerce.
+- Facilitar o processo de compras online. Desde a escolha do produto pelo cliente, até a finalização do pedido, com o pagamento, todo o processo deve ser realizado por meios digitais.
 
 
 ##Diagrama:
 
-![diagrama](https://drive.google.com/file/d/1msN61PpFjJFU-YmIFzkOBd665QYPAuin/view)
+![image](https://user-images.githubusercontent.com/96259892/201107213-a17ff14d-a12f-4eec-9d2d-7172890ec090.png)
 
 ##tecnologias utilizadas:
 
--NodeJS
--ExpressJS
--typeORM
--Typescript
--Docker
--Jest
--bcrypt
--jsonwebtoken
--supertest
--uuid
--ts-node-dev
--express-async-errors
--pg
--cross-env
--class-validator
--class-transformer
+- NodeJS
+- ExpressJS
+- typeORM
+- Typescript
+- Docker
+- Jest
+- bcrypt
+- jsonwebtoken
+- supertest
+- uuid
+- ts-node-dev
+- express-async-errors
+- pg
+- cross-env
+- class-validator
+- class-transformer
 
 
 ###Extras:
--CREDIT CARD
--PROMOTIONS
--CONTRACT
--ADDRESS SELLER
--SEGUIDORES
--IMAGEM - PRODUCTS
--IMAGEM - USUARIO
+- CREDIT CARD
+- PROMOTIONS
+- CONTRACT
+- ADDRESS SELLER
+- SEGUIDORES
+- IMAGEM - PRODUCTS
+- IMAGEM - USUARIO
