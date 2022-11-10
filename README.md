@@ -1,21 +1,22 @@
 # KTechMall
 
-##Descrição:
+## Descrição:
 
 Aplicação baseada no mecanismo de back-end base para a estruturação de um E-commerce, focado em compras e vendas de produtos relacionados à informática e tecnologias.
 
 
-##Solução:
+## Solução:
 
 - Facilitar o desenvolvimento de plataformas de E-commerce no geral, criando uma criando um núcleo de back-end sólido para que o desenvolvimento e deploy mais ágil de um E-commerce.
 - Facilitar o processo de compras online. Desde a escolha do produto pelo cliente, até a finalização do pedido, com o pagamento, todo o processo deve ser realizado por meios digitais.
 
 
-##Diagrama:
+## Diagrama:
 
-![image](https://user-images.githubusercontent.com/96259892/201107213-a17ff14d-a12f-4eec-9d2d-7172890ec090.png)
+![diagrama_kenzieMolls](https://user-images.githubusercontent.com/96259892/201108490-50807161-0d54-444e-94b7-40608fdd39b1.png)
 
-##tecnologias utilizadas:
+
+## tecnologias utilizadas:
 
 - NodeJS
 - ExpressJS
@@ -35,7 +36,7 @@ Aplicação baseada no mecanismo de back-end base para a estruturação de um E-
 - class-transformer
 
 
-###Extras:
+### Extras:
 - CREDIT CARD
 - PROMOTIONS
 - CONTRACT
