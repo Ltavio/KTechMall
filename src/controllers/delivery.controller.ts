@@ -6,9 +6,9 @@ import updateDeliveryService from "../services/delivery/updateDelivery.service";
 const createDeliveryController = async (
   req: Request,
   res: Response
-): Promise<Response> => {
-  const { address_id, receiver } = req.body;
-  const response = await createDeliveryService({ address_id, receiver });
+) => {
+  const { addressId, receiver } = req.body;
+  const response = await createDeliveryService({ addressId, receiver });
   return res.status(201).json(response);
 };
 

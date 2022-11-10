@@ -7,7 +7,6 @@ import AppError from "../../errors/appErrors";
 import { IPaymentRequest, IPaymentResponse } from "../../interfaces/payment";
 
 const createPaymentService = async(
-  paymentData:IPaymentRequest,
   id:string  ): Promise<IPaymentResponse>=>{
   const paymentRepository = AppDataSource.getRepository(Payment)
   const cartRepository = AppDataSource.getRepository(Cart)

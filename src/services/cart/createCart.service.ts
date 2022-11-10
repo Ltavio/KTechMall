@@ -1,4 +1,5 @@
 import AppDataSource from "../../data-source";
+import Addresses from "../../entities/addresses.entity";
 import Cart from "../../entities/cart.entity";
 import Delivery from "../../entities/delivery.entity";
 
@@ -16,30 +17,28 @@ const createCartService = async (
   const orderProductRepository = AppDataSource.getRepository(Order_Product)
   const addressRepository = AppDataSource.getRepository(Addresses)
 
-  const address = await addressRepository.findOne({where:{user:{id: id}}})
-  
+
+
+  const address = await addressRepository.findOne({where:{user:{id: id}}})  
+  const user = await userRepository.findOneBy({ id: id });
+  const delivery = await deliveryRepository.findOne({where: {address:{id: address?.id}}})
   const ordersProduct = await orderProductRepository.find({where: { user:{ id: id}}})
   let valorTotal = 0
   ordersProduct.forEach(element => {
-   valorTotal += element.quantity*element.product.price
+    valorTotal += element.quantity*element.product.price
   });
-
-  if (!user) {
-    throw new AppError("User not found");
-  }
-
-  if (!delivery) {
-    throw new AppError("Delivery not found");
-  }
-
-  const user = await userRepository.findOneBy({ id: id });
+  
+  if(!address){throw new AppError("Address not found") }
+  if (!user) { throw new AppError("User not found") }
+  if (!delivery) { throw new AppError("Delivery not found") }
+  
   const newDelivery = deliveryRepository.create({
    receiver: "Kenzie",
-   addresses: address
+   address: address,
   })
-  await deliveryRepository.save(delivery)
 
-  const delivery = await deliveryRepository.findOne({where: {}})
+  await deliveryRepository.save(newDelivery)
+
   
   if (!user) { throw new AppError("User not found") }
   if (!delivery) { throw new AppError("Delivery not found")}
@@ -52,11 +51,12 @@ const createCartService = async (
     delivery,
   });
 
-  const teste = await cartRepository.save(newCart);
+  const cart = await cartRepository.save(newCart);
+  
 
   return {
     message: "Created delivery",
-    data: teste,
+    data: cart
   };
 };
 

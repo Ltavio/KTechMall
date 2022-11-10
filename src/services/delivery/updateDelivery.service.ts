@@ -22,11 +22,11 @@ const updateDeliveryService = async (
     throw new AppError("Not Possible update ID", 401);
   }
 
-  await deliveryRepository.update(delivery!.id, {
-    ...delivery,
-    ...dataDelivery,
-    updatedAt: new Date(),
-  });
+  // await deliveryRepository.update(delivery!.id, {
+  //   ...delivery,
+  //   ...dataDelivery,
+  //   updatedAt: new Date(),
+  // });
 
   return {
     message: "Updated delivery",
