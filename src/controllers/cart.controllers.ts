@@ -3,8 +3,8 @@ import createCartService from "../services/cart/createCart.service";
 import listCartService from "../services/cart/listCart.service";
 
 const createCartController = async (req: Request, res: Response) => {
-  const cartData = req.body;
-  const response = await createCartService(cartData);
+  const id = req.user.id
+  const response = await createCartService(id);
 
   return res.status(201).json(response);
 };
