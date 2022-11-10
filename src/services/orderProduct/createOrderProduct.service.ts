@@ -24,7 +24,7 @@ const createOrderProductService = async(
   if(!user){ throw new AppError("User not found", 404) };
   if(!product){ throw new AppError("Product not found", 404) };
   if( product.stock < orderProductData.quantity ){
-     throw new AppError("insufficient stock", 401) };
+     throw new AppError("insufficient stock", 409) };
   
   const newOrderProduct = orderProductRepository.create({
     ...orderProductData,

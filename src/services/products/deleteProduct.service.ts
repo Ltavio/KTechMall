@@ -9,7 +9,7 @@ const deleteProductService = async ( id : string): Promise<any> => {
 
     const findProduct = await productRepository.findOneBy({ id });
 
-    if(!findProduct){ throw new AppError("Product not found" ,400) };
+    if(!findProduct){ throw new AppError("Product not found" ,401) };
     if(findProduct.isActive === false){ 
         throw new AppError("Product already deleted" , 400) };
     

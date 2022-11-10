@@ -6,19 +6,26 @@ import Product from "../../entities/products.entity";
 import { IProductResponse, IProductUpdate } from "../../interfaces/products";
 
 const updateProductService = async (
-  { name, price, stock, description }:IProductUpdate,
+  requestData:IProductUpdate,
   id: string):Promise<IProductResponse> => {
   const productsRepository = AppDataSource.getRepository(Product);
   const findProduct = await productsRepository.findOneBy({ id });
+  const findProductSameName = await productsRepository.findOneBy({ name: requestData.name })
+  
+  if(requestData.name && findProductSameName){
+    throw new AppError("This product already exists", 409);
+    
+  }
+  if (!findProduct) {
 
-  if (!findProduct) { throw new AppError("Product does not exist", 404) };
+    throw new AppError("Product does not exist", 404) };
 
-  await productsRepository.update(id, {
-    name: name ? name : findProduct.name,
-    price: price ? price : findProduct.price,
-    stock: stock ? stock : findProduct.stock,
-    description: description ? description : findProduct.description,
-  });
+  const newProduct = {
+    ...findProduct,
+    ...requestData
+  }
+  
+  await productsRepository.update(id, newProduct);
 
   const product = await productsRepository.findOneBy({ id });
 

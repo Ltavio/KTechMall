@@ -10,16 +10,16 @@ import { IUserLogin } from "../../interfaces/user";
 
 const userSessionService = async({ email, password }: IUserLogin): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.findOneBy({ email });
+  const user = await userRepository.findOneBy({ email });
 
-  if (!users) { throw new AppError( "Account not found" ) };
-  if (!users.password) { throw new AppError( "Password not found", 401 ) };
-  if (!bcrypt.compareSync(password, users.password)){
+  if (!user) { throw new AppError( "Account not found" ) };
+  if (!user.password) { throw new AppError( "Password not found", 401 ) };
+  if (!bcrypt.compareSync(password, user.password)){
     throw new AppError("Wrong email/password", 403)};
 
-  const token = jwt.sign({ email: email }, String(process.env.SECRET_KEY), {
-    expiresIn: "24h",
-    subject: users.id,
+  const token = jwt.sign({isAdm:user.isAdm}, process.env.SECRET_KEY as string, {
+    subject: user.id,
+    expiresIn: "24h"
   });
 
   return token;
