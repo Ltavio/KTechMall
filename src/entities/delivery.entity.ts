@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 @Entity("delivery")
@@ -13,8 +14,8 @@ export default class Delivery {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @Column({ length: 100 })
-  address_id: string;
+  @ManyToOne(()=> Addresses,  {eager:true})
+  address: Addresses
 
   @Column({ default: true })
   delivery: boolean;
