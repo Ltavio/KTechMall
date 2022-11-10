@@ -37,10 +37,11 @@ Aplicação baseada no mecanismo de back-end base para a estruturação de um E-
 
 
 ### Extras:
-- CREDIT CARD
-- PROMOTIONS
-- CONTRACT
-- ADDRESS SELLER
-- SEGUIDORES
-- IMAGEM - PRODUCTS
-- IMAGEM - USUARIO
+
+- Credit card
+- Promotions
+- Contract
+- Address seller
+- Seguidores
+- Imagem - products
+- Imagem - usuário
