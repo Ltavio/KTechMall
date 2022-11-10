@@ -24,6 +24,14 @@ const createCartService = async (
    valorTotal += element.quantity*element.product.price
   });
 
+  if (!user) {
+    throw new AppError("User not found");
+  }
+
+  if (!delivery) {
+    throw new AppError("Delivery not found");
+  }
+
   const user = await userRepository.findOneBy({ id: id });
   const newDelivery = deliveryRepository.create({
    receiver: "Kenzie",
@@ -48,7 +56,7 @@ const createCartService = async (
 
   return {
     message: "Created delivery",
-    data: teste
+    data: teste,
   };
 };
 
