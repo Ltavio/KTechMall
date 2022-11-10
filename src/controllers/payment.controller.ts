@@ -3,9 +3,8 @@ import createPaymentService from "../services/payment/createPayment.service"
 
 
 const createPaymentController = async(req:Request, res:Response)=>{
-  const paymentData = req.body
   const { id } = req.params
-  const response = await createPaymentService(paymentData, id)
+  const response = await createPaymentService(id)
 
   return res.status(201).json(response)
 }

@@ -1,6 +1,8 @@
+import { IAddress } from "../addresses";
+
 export interface IDelivery {
   id: string;
-  address_id: string;
+  address: IAddress;
   delivery: boolean;
   receiver: string;
   createdAt: Date;
@@ -8,7 +10,7 @@ export interface IDelivery {
 }
 
 export interface IDeliveryRequest {
-  address_id: string;
+  addressId: string;
   receiver: string;
 }
 
@@ -18,6 +20,6 @@ export interface IDeliveryResponse {
 }
 
 export interface IDeliveryUpdate {
-  address_id: string;
+  address: string;
   receiver?: string;
 }

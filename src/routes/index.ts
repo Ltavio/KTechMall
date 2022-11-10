@@ -12,7 +12,6 @@ import deliveryRoutes from "./delivery.routes";
 import addressRoutes from "./addresses.routes";
 import paymentRouter from "./payment.routes";
 
-
   export const AppRoutes = (app: Express) => {
     app.use("/users", userRoutes());
     app.use("/login", sessionRoutes());
@@ -25,4 +24,3 @@ import paymentRouter from "./payment.routes";
     app.use("/payment", paymentRouter());
     app.use("/address", addressRoutes());
   };
-};

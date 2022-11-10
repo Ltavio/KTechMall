@@ -50,7 +50,7 @@ export default class Addresses {
   @JoinTable()
   user: User[];
 
-  @OneToMany(() => Delivery, (Delivery) => Delivery.adress)
+  @OneToMany(() => Delivery, (Delivery) => Delivery.address)
   Delivery: Delivery[];
 
   constructor() {

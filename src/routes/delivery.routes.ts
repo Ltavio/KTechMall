@@ -10,7 +10,7 @@ const routes = Router();
 
 const deliveryRoutes = () => {
   routes.post("/", authTokenMiddleware, createDeliveryController);
-  routes.patch("/:id", authTokenMiddleware, updateDeliveryController);
+  //routes.patch("/:id", authTokenMiddleware, updateDeliveryController);
   return routes;
 };
 

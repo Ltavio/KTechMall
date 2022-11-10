@@ -10,7 +10,7 @@ const createCartController = async (req: Request, res: Response) => {
 };
 
 const listCartController = async (req: Request, res: Response) => {
-  const userId = req.params.id
+  const userId = req.user.id
 
   const response = await listCartService(userId);
   return res.status(200).json(response);

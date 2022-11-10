@@ -1,17 +1,23 @@
 import AppDataSource from "../../data-source";
+import Addresses from "../../entities/addresses.entity";
 
 import Delivery from "../../entities/delivery.entity";
+import AppError from "../../errors/appErrors";
 
 import { IDeliveryRequest, IDeliveryResponse } from "../../interfaces/delivery";
 
 const createDeliveryService = async ({
-  address_id,
+  addressId,
   receiver,
 }: IDeliveryRequest): Promise<IDeliveryResponse> => {
   const deliveryRepository = AppDataSource.getRepository(Delivery);
+  const addressRepository = AppDataSource.getRepository(Addresses)
+  const address = await addressRepository.findOneBy({id:addressId}) 
+
+  if(!address){throw new AppError("address not found") }
 
   const delivery = deliveryRepository.create({
-    address_id: address_id,
+    address: address,
     receiver: receiver,
   });
 
